@@ -1,0 +1,79 @@
+﻿# Chat App Backend Take-Home Exercise
+
+In this take-home exercise, you will implement a backend WebSocket API to
+enable a frontend messaging application to lazy-load messages and provide an
+"infinite scroll" experience for the user. Use the programming language you are
+most comfortable with.
+
+**Timebox: 8 hours**
+
+Please timebox this exercise to 8 hours. Email us when you begin and again when
+you finish. We want to ensure this exercise doesn't consume more time than
+intended. Remember, it's not a race; we simply want to respect your time. If 8
+hours is not practical, choose a time allotment that works for you.
+
+**Notes**
+
+- We are only interested in the backend; there is no need to implement a frontend. 
+- The solution should have tests.
+- We are interested in seeing the right asymptotic performance, so make sure to
+  check this in the tests by running on large synthetic data sets—100,000 or
+  1,000,000 messages. 
+- We are also interested in how you handle concurrency.
+- If there is time you can implement persistence, but if time is short holding
+  the data in memory is okay.
+- Please document the build, test and run procedure as a README.
+- It is better to have a humble-but-working solution than an elaborate half-working solution.
+
+## Problem Context
+
+In messaging applications, users often need to scroll through large lists of
+messages on desktop and mobile clients. Messages can include text, images,
+reactions, and other content types, which can cause UI lag if too many are
+rendered at once. While libraries like React Native's FlatList can help by
+rendering only visible content, they might not be suitable in all cases, and
+storing the entire message list on the frontend may not always be practical. A
+lazy-loading API can provide a solution by sending a subset of messages based
+on the user's position in the list.
+
+## Instructions
+
+1. Simulate the arrival of new messages in a peer-to-peer chat application
+based on a CRDT. Messages should be strings with timestamps. You don't need to
+build or use a CRDT, but simulate the following behavior:
+
+
+- Most messages arrive at the bottom of the list with a timestamp greater than
+  all previous messages.
+- Some messages arrive “late” with a timestamp less than an arbitrary number of
+  newer messages’ timestamps.
+- Occasionally, a large chunk of consecutive messages arrives arbitrarily late.
+
+
+2. Treat this exercise as an initial research phase or hackathon, where you aim
+to create a proof-of-concept API to support the desired frontend user
+experience. Attempt to implement the following features:
+
+**Feature 1: Display Recent Messages**
+
+When the user selects a channel, the frontend should load a limited number of
+messages quickly. New messages should be displayed immediately upon arrival.
+Late messages arriving within the user's view should also be displayed
+immediately.
+
+**Feature 2: Rapid Scrolling Through Message List**
+
+Users should be able to scroll fluidly through the message list by dragging the
+scrollbar. If they scroll beyond the loaded messages, they may need to wait
+momentarily for more messages to load.
+
+**Feature 3: Navigate Through Late Messages**
+   
+When late messages arrive outside the user's view, the frontend should indicate
+their presence, similar to Telegram's UI for new, unread reactions. Users
+should be able to click and scroll to these messages (which may or may not be
+loaded in the frontend yet) and view them in context with other
+recently-arrived late messages and older messages.
+
+We can discuss any interesting problems that come up or ideas for extension
+synchronously, after this exercise. (Looking forward to it!)
