@@ -2,6 +2,8 @@ import WebSocket from 'ws'
 
 
 export class Client {
+    static MAX_ID = 0
+
     /** A simple id we're going to assign to each client. */
     id: number
 
@@ -18,8 +20,12 @@ export class Client {
     /** The point in that channel they have loaded to. **/
     index: number
 
-    constructor(id: number, socket: WebSocket | any ) {
-        this.id = id
+    constructor(socket: WebSocket | any ) {
+        // TECHDEBT We probably want a way to reuse ids when clients close.  Or
+        // we should just use UUID.
+        this.id = Client.MAX_ID 
+        Client.MAX_ID += 1 
+
         this.socket = socket
 
         this.channelName = ''

@@ -51,8 +51,7 @@ export class Dispatcher {
     // sure we have a 'general' channel.
     //
     // The "default channel" should probably be configurable.
-    const id = this.backend.clients['general'].length
-    const client = new Client(id, socket)
+    const client = new Client(socket)
     client.channelName = 'general'
     this.backend.clients['general'].push(client)
 
